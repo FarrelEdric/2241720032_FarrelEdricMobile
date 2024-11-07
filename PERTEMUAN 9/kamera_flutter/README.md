@@ -1,16 +1,20 @@
-# kamera_flutter
+# hello im Farrel
 
-A new Flutter project.
+kamera flutter.
 
-## Getting Started
+## Praktikum 1
 
-This project is a starting point for a Flutter application.
+### langkah 1
+flutter pub add camera path_provider path
+![Screenshot hello_world](assets/instal%20camera%20pub.png)
 
-A few resources to get you started if this is your first Flutter project:
+### soal 1-3
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+![Screenshot hello_world]()
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Praktikum 2 - 4
+
+![Screenshot hello_world]()
+
+
+
