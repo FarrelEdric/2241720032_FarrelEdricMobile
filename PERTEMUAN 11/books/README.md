@@ -6,5 +6,6 @@ Books.
 
 ![Screenshot hello_world](Images/praktikum%201.png)
 
-### Tugas 1
+### soal 2
+![Screenshot hello_world](Images/soal2.png)
 
