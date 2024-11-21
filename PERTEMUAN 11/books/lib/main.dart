@@ -32,27 +32,11 @@ class FuturePage extends StatefulWidget {
 class _FuturePageState extends State<FuturePage> {
   String result = "";
 
-  Future<void> fetchData() async {
+  Future<http.Response> getData() async {
     const authority = 'www.googleapis.com';
     const path = '/books/v1/volumes/ExALEQAAQBAJ';
     final url = Uri.https(authority, path);
-
-    try {
-      final response = await http.get(url);
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body) as Map<String, dynamic>;
-        final title = data['volumeInfo']['title'] as String;
-        setState(() {
-          result = 'Judul Buku: $title';
-        });
-      } else {
-        // Handle error (e.g., print message, display error UI)
-        print('Error: Failed to load data (status code: ${response.statusCode})');
-      }
-    } catch (e) {
-      // Handle general exceptions
-      print('Error: $e');
-    }
+    return await http.get(url);
   }
 
   @override
@@ -66,12 +50,32 @@ class _FuturePageState extends State<FuturePage> {
           mainAxisAlignment: MainAxisAlignment.center, // Center content vertically
           children: [
             ElevatedButton(
-              onPressed: fetchData,
+              onPressed: () {
+                // Menambahkan logika dari gambar
+                getData()
+                    .then((response) {
+                      if (response.statusCode == 200) {
+                        final data = jsonDecode(response.body) as Map<String, dynamic>;
+                        final title = data['volumeInfo']['title'] as String;
+                        setState(() {
+                          result = 'Judul Buku: $title';
+                        });
+                      } else {
+                        setState(() {
+                          result = 'Error: Gagal memuat data (kode status: ${response.statusCode})';
+                        });
+                      }
+                    })
+                    .catchError((error) {
+                      setState(() {
+                        result = 'An error occurred: $error';
+                      });
+                    });
+              },
               child: const Text('GO!'),
             ),
             const SizedBox(height: 20), // Add spacing between button and text
             Text(result),
-            const CircularProgressIndicator(),
           ],
         ),
       ),
