@@ -1,9 +1,8 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 
@@ -13,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Future Demo',
+      title: 'Farrel',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -31,15 +30,29 @@ class FuturePage extends StatefulWidget {
 }
 
 class _FuturePageState extends State<FuturePage> {
-  String result = '';
-  Future<http.Response> getData() async {
+  String result = "";
+
+  Future<void> fetchData() async {
     const authority = 'www.googleapis.com';
     const path = '/books/v1/volumes/junbDwAAQBAJ';
+    final url = Uri.https(authority, path);
 
-    final Uri url = Uri.https(authority, path);
-
-    final http.Response response = await http.get(url);
-    return response;
+    try {
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body) as Map<String, dynamic>;
+        final title = data['volumeInfo']['title'] as String;
+        setState(() {
+          result = 'Judul Buku: $title';
+        });
+      } else {
+        // Handle error (e.g., print message, display error UI)
+        print('Error: Failed to load data (status code: ${response.statusCode})');
+      }
+    } catch (e) {
+      // Handle general exceptions
+      print('Error: $e');
+    }
   }
 
   @override
@@ -50,27 +63,15 @@ class _FuturePageState extends State<FuturePage> {
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center, // Center content vertically
           children: [
-            const Spacer(),
             ElevatedButton(
-              child: const Text('Go!'),
-              onPressed: () {
-                setState(() {
-                  getData().then((value) {
-                    result = value.body.toString().substring(0, 450);
-                    setState(() {});
-                  }).catchError((_));
-                  result = 'An error occurred';
-                  setState(() {});
-                });
-              },
-              // Kode untuk melakukan permintaan HTTP dan memperbarui _result
+              onPressed: fetchData,
+              child: const Text('GO!'),
             ),
-            const Spacer(),
+            const SizedBox(height: 20), // Add spacing between button and text
             Text(result),
-            const Spacer(),
             const CircularProgressIndicator(),
-            const Spacer(),
           ],
         ),
       ),
