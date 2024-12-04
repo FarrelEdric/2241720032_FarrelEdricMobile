@@ -31,16 +31,32 @@ class StreamHomePage extends StatefulWidget {
 class _StreamHomePageState extends State<StreamHomePage> {
   int lastNumber = 0;
   late StreamController<int> numberStreamController;
+  late Stream<int> transformedStream;
   late NumberStream numberStream;
 
   @override
   void initState() {
     super.initState();
+
+    // Inisialisasi stream
     numberStream = NumberStream();
     numberStreamController = numberStream.controller;
 
-    // Mendengarkan stream dan menangani error
-    numberStreamController.stream.listen(
+    // Stream dengan transformasi
+    transformedStream = numberStreamController.stream.transform(
+      StreamTransformer<int, int>.fromHandlers(
+        handleData: (value, sink) {
+          sink.add(value * 10); // Transformasi data
+        },
+        handleError: (error, stackTrace, sink) {
+          sink.add(-1); // Tangani error dengan nilai default
+        },
+        handleDone: (sink) => sink.close(),
+      ),
+    );
+
+    // Dengarkan stream hasil transformasi
+    transformedStream.listen(
       (event) {
         setState(() {
           lastNumber = event;
@@ -48,7 +64,7 @@ class _StreamHomePageState extends State<StreamHomePage> {
       },
       onError: (error) {
         setState(() {
-          lastNumber = -1; // Nilai default jika terjadi error
+          lastNumber = -1; // Nilai default jika error
         });
       },
     );

@@ -35,3 +35,11 @@ Hasilnya setelah di running sama saja seperti sebelumnya hanya berbeda dalam pen
 ### soal 7
 #### jawaban soal 7 adalah
 ##### Langkah 13 hingga 15 bertujuan untuk meningkatkan penanganan kesalahan dalam stream. Pada langkah 13, kode addError('error'); ditambahkan untuk mengirimkan sinyal kesalahan ke sink dari StreamController, yang memungkinkan aliran data untuk menginformasikan bahwa terjadi kesalahan. Langkah 14 melibatkan penambahan metode onError dalam listen pada stream di initState(), di mana ketika kesalahan terjadi, fungsi ini mengubah state lastNumber menjadi -1 untuk menunjukkan adanya masalah. Langkah 15 memperbarui metode addRandomNumber() dengan mengomentari baris yang menghasilkan angka acak dan menambahkan numberStream.addError('error');, yang mensimulasikan kesalahan untuk menguji respons aplikasi terhadap kondisi tersebut.
+
+## Praktikum 3
+### soal 8
+#### jawaban soal 8 adalah Langkah 1 bertujuan untuk mendeklarasikan StreamTransformer, yang memungkinkan transformasi data secara efisien saat diterima dari stream. Langkah 2 berfungsi untuk mendefinisikan bagaimana data dan kesalahan akan ditangani melalui transformer, sehingga memberikan pengendalian yang lebih baik atas aliran data. Langkah 3 memastikan bahwa transformer diterapkan pada stream, memungkinkan listener untuk memonitor dan memperbarui state aplikasi berdasarkan data yang telah diproses.
+
+![Screenshot hello_world](Images/soal%207.png)
+
+## Praktikum 4
