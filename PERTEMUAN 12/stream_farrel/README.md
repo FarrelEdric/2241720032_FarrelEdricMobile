@@ -26,7 +26,12 @@ Jawab : Listen digunakan untuk stream sedangkan await digunakan untuk future. La
 Hasilnya setelah di running sama saja seperti sebelumnya hanya berbeda dalam penggunaan listen dan await saja.
 
 
+## Praktikum 2
 ### soal 6
 #### jadi pada code ini singkatnya kita membuat code yang di mana untuk melakukan ketika menekan tombol maka akan melakukan perhitungana acak code yang melakukan perhitungan acak itu ialah dari langkah 10
 
 ![Screenshot hello_world](Images/soal%206.png)
+
+### soal 7
+#### jawaban soal 7 adalah
+##### Langkah 13 hingga 15 bertujuan untuk meningkatkan penanganan kesalahan dalam stream. Pada langkah 13, kode addError('error'); ditambahkan untuk mengirimkan sinyal kesalahan ke sink dari StreamController, yang memungkinkan aliran data untuk menginformasikan bahwa terjadi kesalahan. Langkah 14 melibatkan penambahan metode onError dalam listen pada stream di initState(), di mana ketika kesalahan terjadi, fungsi ini mengubah state lastNumber menjadi -1 untuk menunjukkan adanya masalah. Langkah 15 memperbarui metode addRandomNumber() dengan mengomentari baris yang menghasilkan angka acak dan menambahkan numberStream.addError('error');, yang mensimulasikan kesalahan untuk menguji respons aplikasi terhadap kondisi tersebut.

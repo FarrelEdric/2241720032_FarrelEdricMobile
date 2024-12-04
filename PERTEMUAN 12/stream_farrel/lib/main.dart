@@ -39,12 +39,19 @@ class _StreamHomePageState extends State<StreamHomePage> {
     numberStream = NumberStream();
     numberStreamController = numberStream.controller;
 
-    // Mendengarkan stream
-    numberStreamController.stream.listen((event) {
-      setState(() {
-        lastNumber = event;
-      });
-    });
+    // Mendengarkan stream dan menangani error
+    numberStreamController.stream.listen(
+      (event) {
+        setState(() {
+          lastNumber = event;
+        });
+      },
+      onError: (error) {
+        setState(() {
+          lastNumber = -1; // Nilai default jika terjadi error
+        });
+      },
+    );
   }
 
   @override
