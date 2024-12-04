@@ -24,3 +24,9 @@ Stream.
 Jawab : Listen digunakan untuk stream sedangkan await digunakan untuk future. Lalu Listen mendengarkan data secara terus menerus sedangkan await menunggu hasil dari operasi asinkron. Listen secara eksekusi yaitu kode tetap berjalan saat menunggu data baru sedangkan await kode tertahan sampai hasil tersedia. Dalam callback listen menggunakan callback untuk setiap nilai baru sedangkan await mengembalikan nilai setelah selesai.
 
 Hasilnya setelah di running sama saja seperti sebelumnya hanya berbeda dalam penggunaan listen dan await saja.
+
+
+### soal 6
+#### jadi pada code ini singkatnya kita membuat code yang di mana untuk melakukan ketika menekan tombol maka akan melakukan perhitungana acak code yang melakukan perhitungan acak itu ialah dari langkah 10
+
+![Screenshot hello_world](Images/soal%206.png)

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'stream.dart';
+import 'dart:async';
+import 'dart:math';
 
 void main() {
   runApp(const MyApp());
@@ -28,44 +29,71 @@ class StreamHomePage extends StatefulWidget {
 }
 
 class _StreamHomePageState extends State<StreamHomePage> {
-  Color bgColor = Colors.blueGrey;
-  late ColourStream colourStream;
+  int lastNumber = 0;
+  late StreamController<int> numberStreamController;
+  late NumberStream numberStream;
 
   @override
   void initState() {
     super.initState();
-    colourStream = ColourStream(); // Inisialisasi ColourStream
-    colourStream.getColors().listen((eventColor) {
+    numberStream = NumberStream();
+    numberStreamController = numberStream.controller;
+
+    // Mendengarkan stream
+    numberStreamController.stream.listen((event) {
       setState(() {
-        bgColor = eventColor;
+        lastNumber = event;
       });
     });
   }
 
-// void changeColor() async {
-  //   await for (var eventColor in colourStream.getColors()) {
-  //     setState(() {
-  //       bgColor = eventColor;
-  //     });
-  //   }
-  // }
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Stream Color Example'),
+        title: const Text('Stream Number Example'),
       ),
-      body: AnimatedContainer(
-        duration: const Duration(milliseconds: 500),
-        color: bgColor,
-        child: const Center(
-          child: Text(
-            'Watch the background color change!',
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
+      body: SizedBox(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              lastNumber.toString(),
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            ElevatedButton(
+              onPressed: addRandomNumber,
+              child: const Text('Generate Random Number'),
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    numberStreamController.close();
+    super.dispose();
+  }
+
+  void addRandomNumber() {
+    Random random = Random();
+    int randomNumber = random.nextInt(10);
+    numberStream.addNumberToSink(randomNumber);
+  }
+}
+
+class NumberStream {
+  final StreamController<int> controller = StreamController<int>();
+
+  void addNumberToSink(int newNumber) {
+    controller.add(newNumber);
+  }
+
+  void close() {
+    controller.close();
   }
 }
