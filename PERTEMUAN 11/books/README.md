@@ -1,13 +1,4 @@
-# hello im Farrel
-
-Books.
-
-## Praktikum 1
-
-![Screenshot hello_world](Images/praktikum%201.png)
-
-### soal 2
-![Screenshot hello_world](Images/soal2.png)
+cc
 ### Soal 3
 Jelaskan maksud kode langkah 5 tersebut terkait substring dan catchError!
 - Kode di atas menunjukkan bagaimana kita bisa membuat tombol yang memicu pemanggilan API dan menampilkan hasilnya di layar Flutter

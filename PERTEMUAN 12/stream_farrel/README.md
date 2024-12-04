@@ -8,4 +8,4 @@ Stream.
 ![Screenshot soal 1](Images/soal%201.png)
 
 ### soal 2
-![Screenshot hello_world]()
+![Screenshot hello_world](Images/soal%202.png)
